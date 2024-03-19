@@ -1,4 +1,5 @@
 class Api::V1::InformationController < ApplicationController
+  before_action :authorize_access_request!
   before_action :set_information, only: %i[ show update destroy ]
 
   # GET /information

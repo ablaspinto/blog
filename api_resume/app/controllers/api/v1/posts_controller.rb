@@ -1,4 +1,5 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :authorize_access_request! , except: [:show, :index]
   before_action :set_post, only: %i[ show update destroy ] , :authenticate , only: [:create]
 
   private 
