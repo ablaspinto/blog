@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/new'
   get 'signup/create'
   resources :information
   namespace :api do 
