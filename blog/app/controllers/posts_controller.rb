@@ -1,36 +1,44 @@
 class PostsController < ApplicationController
-  before_action :set_post , except: [:index,:new,:create]
+  before_action :authenticate_user!, except: [:index,:show]
+  before_action :set_post, except: %i[index new create]
   def index
     @posts = Post.all
   end
+
   def show
   end
-  def new 
+
+  def new
     @post = Post.new
   end
+
   def create
     @post = Post.new(post_params)
-    if @post.save 
+    if @post.save
       redirect_to @post
-    else 
-      render :new , status: :unprocessable_entity
+    else
+      render :new, status: :unprocessable_entity
     end
   end
+
   def edit
   end
 
   def update
     if @post.update(post_params)
-      redirect_to @post 
-    else 
+      redirect_to @post
+    else
       render :edit, status: :unprocessable_entity
     end
   end
+
   def destroy
     @post.destroy
     redirect_to root_path
   end
-  private 
+
+  private
+
   def post_params
     params.require(:post).permit(:title, :body)
   end
@@ -41,4 +49,3 @@ class PostsController < ApplicationController
     redirect_to root_path
   end
 end
-
